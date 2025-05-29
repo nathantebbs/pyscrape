@@ -6,6 +6,7 @@ import os
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
+
 def get_pdf_links(url):
     try:
         r = requests.get(url)
@@ -26,6 +27,7 @@ def get_pdf_links(url):
 
     return links
 
+
 def download_file(url, folder='.'):
     local_filename = os.path.join(folder, url.split('/')[-1])
     try:
@@ -37,6 +39,7 @@ def download_file(url, folder='.'):
         print(f"Downloaded: {local_filename}")
     except Exception as e:
         print(f"Failed to download {url}: {e}")
+
 
 def main():
     url = input("Enter the website URL to scrape for PDFs: ").strip()
@@ -50,7 +53,8 @@ def main():
     for i, link in enumerate(pdf_links):
         print(f"{i+1}: {link}")
 
-    choices = input("\nEnter the number(s) of the PDF(s) to download (e.g., 1 or 1,3,5): ")
+    choices = input(
+        "\nEnter the number(s) of the PDF(s) to download (e.g., 1 or 1,3,5): ")
     indices = set()
     for part in choices.split(','):
         part = part.strip()
@@ -66,6 +70,6 @@ def main():
     for i in sorted(indices):
         download_file(pdf_links[i])
 
+
 if __name__ == "__main__":
     main()
-
